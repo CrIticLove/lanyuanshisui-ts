@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { usePageEvent } from 'remax/macro';
-import { View, Text, Image, login, request } from 'remax/wechat';
+import { View, Text, login, request } from 'remax/wechat';
+import 'weui-miniprogram/miniprogram_dist/weui-wxss/dist/style/weui.wxss';
 import styles from './index.css';
 
 export default () => {
@@ -13,7 +14,7 @@ export default () => {
         data: res,
       }).then((res) => {
         console.log(res);
-        setMsg(res.data)
+        setMsg(res.data);
       })
     }).catch((err) => {
       console.log('login fail', err);
@@ -23,13 +24,8 @@ export default () => {
   return (
     <View className={styles.app}>
       <View className={styles.header}>
-        <Image
-          src="https://gw.alipayobjects.com/mdn/rms_b5fcc5/afts/img/A*OGyZSI087zkAAAAAAAAAAABkARQnAQ"
-          className={styles.logo}
-        // alt="logo"
-        />
         <View className={styles.text}>
-          从服务器返回的数据: {msg}
+          <Text>从服务器返回的数据: {msg}</Text>
         </View>
       </View>
     </View>
