@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { usePageEvent } from 'remax/macro';
-import { View, Text, login, request } from 'remax/wechat';
-import 'weui-miniprogram/miniprogram_dist/weui-wxss/dist/style/weui.wxss';
+import { View, Text } from 'remax/one';
+import { login, request, setTabBarItem } from 'remax/wechat';
+import { Icon } from 'annar';
 import styles from './index.css';
 
 export default () => {
@@ -21,9 +22,21 @@ export default () => {
     })
   })
 
+  usePageEvent('onLoad', () => {
+    setTabBarItem({
+      index: 0,
+      iconPath: 'icon/home.svg',
+    }).then((msg) => {
+      console.log(msg);
+    }).catch((err) => {
+      console.log(err);
+    })
+  })
+
   return (
     <View className={styles.app}>
       <View className={styles.header}>
+        <Icon type="likefill" size="50px" />
         <View className={styles.text}>
           <Text>从服务器返回的数据: {msg}</Text>
         </View>
