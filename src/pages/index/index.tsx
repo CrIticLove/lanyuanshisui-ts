@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { useNativeEffect } from 'remax';
+import React, { useState } from 'react';
+import { usePageEvent } from 'remax/macro';
 import { View, Text, Image, login, request } from 'remax/wechat';
 import styles from './index.css';
 
 export default () => {
-  useNativeEffect(() => {
+  const [msg, setMsg] = useState('')
+  usePageEvent('onLoad', () => {
     login().then((res) => {
       console.log(res);
       request({
@@ -12,11 +13,12 @@ export default () => {
         data: res,
       }).then((res) => {
         console.log(res);
+        setMsg(res.data)
       })
     }).catch((err) => {
       console.log('login fail', err);
     })
-  }, [])
+  })
 
   return (
     <View className={styles.app}>
@@ -27,8 +29,7 @@ export default () => {
         // alt="logo"
         />
         <View className={styles.text}>
-          编辑 <Text className={styles.path}>src/pages/index/index.js</Text>{' '}
-          开始
+          从服务器返回的数据: {msg}
         </View>
       </View>
     </View>
